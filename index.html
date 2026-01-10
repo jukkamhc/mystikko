@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kristillisten Mystikoiden Lainauksia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8edf2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            padding: 60px 50px;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #34495e;
+            margin-bottom: 50px;
+            letter-spacing: 1px;
+        }
+
+        .quote-container {
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 40px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .quote-container.visible {
+            opacity: 1;
+        }
+
+        .quote {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .quote::before {
+            content: '"';
+            font-size: 3rem;
+            color: #bdc3c7;
+            position: relative;
+            top: 15px;
+            margin-right: 5px;
+        }
+
+        .quote::after {
+            content: '"';
+            font-size: 3rem;
+            color: #bdc3c7;
+            position: relative;
+            top: 15px;
+            margin-left: 5px;
+        }
+
+        .author {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            font-style: normal;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            letter-spacing: 0.5px;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 1.4rem;
+            }
+
+            .quote {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kristillisten Mystikoiden Lainauksia</h1>
+
+        <div id="quote-container" class="quote-container visible">
+            <div class="quote" id="quote-text">
+                Paina nappia saadaksesi inspiroivan lainauksen
+            </div>
+            <div class="author" id="author-name"></div>
+        </div>
+
+        <button onclick="generateQuote()">Uusi lainaus</button>
+    </div>
+
+    <script>
+        const quotes = [
+            {
+                quote: "Pimeässä yössä sieluni kaipaa vain Sinua, rakas Jumalani.",
+                author: "Pyhä Johannes Ristiläinen"
+            },
+            {
+                quote: "Jumala yksinään riittää.",
+                author: "Teresa Avilalainen"
+            },
+            {
+                quote: "Se mikä meillä on ollut, voimme menettää. Mutta se mitä me olemme, on ikuista.",
+                author: "Teresa Avilalainen"
+            },
+            {
+                quote: "Aloita tekemällä tarpeellista, sitten tee mahdollista, ja yhtäkkiä huomaat tekeväsi mahdotonta.",
+                author: "Pyhä Franciscus Assisilainen"
+            },
+            {
+                quote: "Saarnaa evankeliumia aina. Käytä sanoja vain jos on tarpeen.",
+                author: "Pyhä Franciscus Assisilainen"
+            },
+            {
+                quote: "Kuinka turhaa on olla huolissaan kuinka kauan elät, kun sinun tulisi huolehtia siitä kuinka hyvin elät.",
+                author: "Tuomas Kempiläinen"
+            },
+            {
+                quote: "Rakkaus tuntee Jumalan, nöyryys löytää Hänet.",
+                author: "Tuomas Kempiläinen"
+            },
+            {
+                quote: "Silmä jolla näen Jumalan, on sama silmä jolla Jumala näkee minut.",
+                author: "Meister Eckhart"
+            },
+            {
+                quote: "Jumala on lähempänä sinua kuin olet itsellesi.",
+                author: "Meister Eckhart"
+            },
+            {
+                quote: "Kaikki tulee olemaan hyvin, ja kaikenlaiset asiat tulevat olemaan hyvin.",
+                author: "Julian Norwichista"
+            },
+            {
+                quote: "Rakkaus oli Hänen merkityksensä.",
+                author: "Julian Norwichista"
+            },
+            {
+                quote: "Älä pelkää, sillä minä olen luonut sinut uudeksi.",
+                author: "Hildegard Bingenläinen"
+            },
+            {
+                quote: "Kuuntele: sielu on kuin tuuli, joka on aina liikkeessä.",
+                author: "Hildegard Bingenläinen"
+            },
+            {
+                quote: "Olet tehnyt meidät Itseäsi varten, ja sydämemme on levoton kunnes se lepää Sinussa.",
+                author: "Pyhä Augustinus"
+            },
+            {
+                quote: "Rakkaus on sydämemme kauneus.",
+                author: "Pyhä Augustinus"
+            },
+            {
+                quote: "Hiljaisuus on Jumalan kieli, kaikki muu on huono käännös.",
+                author: "Thomas Merton"
+            },
+            {
+                quote: "Me emme löydä Jumalaa pelkästään ymmärryksellämme. Löydämme Hänet rakkaudessa.",
+                author: "Thomas Merton"
+            },
+            {
+                quote: "Ole se kuka olet ja ole se täysin.",
+                author: "Catherine Sienalainen"
+            },
+            {
+                quote: "Jos olisit se mitä sinun tulisi olla, sytyttäisit koko maailman tuleen.",
+                author: "Catherine Sienalainen"
+            },
+            {
+                quote: "Hiljaisuudessa opimme kuulemaan Jumalan äänen.",
+                author: "Pyhä Johannes Ristiläinen"
+            },
+            {
+                quote: "Mitä enemmän heittäydyt Jumalan käsiin, sitä enemmän Hän toimii sinun kauttasi.",
+                author: "Teresa Avilalainen"
+            },
+            {
+                quote: "Ei ole pimeyttä niin syvää, ettei Jumalan rakkaus voisi tavoittaa sitä.",
+                author: "Julian Norwichista"
+            },
+            {
+                quote: "Rukous ei muuta Jumalaa, se muuttaa meitä.",
+                author: "Pyhä Augustinus"
+            },
+            {
+                quote: "Suurin tiede on tietää, ettet tiedä mitään.",
+                author: "Thomas Merton"
+            },
+            {
+                quote: "Armolahja on nähdä tavallisessa ihmeellinen.",
+                author: "Hildegard Bingenläinen"
+            }
+        ];
+
+        let usedQuotes = [];
+
+        function generateQuote() {
+            const quoteContainer = document.getElementById('quote-container');
+
+            // Fade out
+            quoteContainer.classList.remove('visible');
+
+            setTimeout(() => {
+                // Jos kaikki lainaukset on käytetty, aloita alusta
+                if (usedQuotes.length === quotes.length) {
+                    usedQuotes = [];
+                }
+
+                // Valitse satunnainen lainaus jota ei ole vielä näytetty
+                let availableQuotes = quotes.filter((_, index) => !usedQuotes.includes(index));
+                let randomIndex = Math.floor(Math.random() * availableQuotes.length);
+                let selectedQuote = availableQuotes[randomIndex];
+
+                // Merkitse lainaus käytetyksi
+                let originalIndex = quotes.indexOf(selectedQuote);
+                usedQuotes.push(originalIndex);
+
+                // Näytä lainaus
+                document.getElementById('quote-text').textContent = selectedQuote.quote;
+                document.getElementById('author-name').textContent = '— ' + selectedQuote.author;
+
+                // Fade in
+                setTimeout(() => {
+                    quoteContainer.classList.add('visible');
+                }, 50);
+            }, 500);
+        }
+
+        // Näytä ensimmäinen lainaus heti
+        window.addEventListener('DOMContentLoaded', () => {
+            generateQuote();
+        });
+    </script>
+</body>
+</html>
