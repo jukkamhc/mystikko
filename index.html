@@ -266,7 +266,7 @@ function aT(){document.documentElement.setAttribute('data-theme',$.theme);docume
 function tgT(){$.theme=$.theme==='dark'?'light':'dark';sv();aT()}
 const LANGS=['fi','en','sv','es','de','pt','fr'];
 const LNAMES={fi:'FI',en:'EN',sv:'SV',es:'ES',de:'DE',pt:'PT',fr:'FR'};
-function tgL(){const i=(LANGS.indexOf($.lang)+1)%LANGS.length;$.lang=LANGS[i];document.getElementById('lB').textContent=LNAMES[$.lang];document.documentElement.lang=$.lang;sv();aI();uSp();rTy();rEd();uLv();rD();rGL();uSL();uSpB()}
+function tgL(){const i=(LANGS.indexOf($.lang)+1)%LANGS.length;$.lang=LANGS[i];document.getElementById('lB').textContent=LNAMES[$.lang];document.documentElement.lang=$.lang;sv();aI();uSp();rTy();rEd();uLv();rD();rGL();uSL();uSpB();rSt()}
 function L(o){return o[$.lang]||o.en||o.fi||''}
 
 // NAV
