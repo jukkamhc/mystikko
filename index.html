@@ -21,7 +21,7 @@
   --glass:rgba(255,255,255,0.06); --glass-b:rgba(255,255,255,0.1); --glass-h:rgba(255,255,255,0.15);
   --shadow:0 8px 32px rgba(0,0,0,0.3); --glow:0 0 30px rgba(99,102,241,0.15);
   --tab-h:72px; --hdr-h:60px; --r:20px; --rs:14px;
-  --st:env(safe-area-inset-top); --sb:env(safe-area-inset-bottom);
+  --st:59px; --sb:34px;
 }
 [data-theme="light"] {
   --bg-0:#F0F4FF; --bg-1:#FFFFFF; --bg-2:#F1F5F9; --bg-3:#E2E8F0;
@@ -43,14 +43,14 @@ button,input,textarea{font-family:inherit;-webkit-user-select:none;user-select:n
 .o3{width:250px;height:250px;background:radial-gradient(circle,rgba(13,148,136,.35),transparent);bottom:10%;left:30%;animation-delay:-16s}
 @keyframes orbF{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(40px,-50px) scale(1.1)}50%{transform:translate(-30px,30px) scale(.9)}75%{transform:translate(20px,40px) scale(1.05)}}
 
-.hdr{position:fixed;top:0;left:0;right:0;height:calc(var(--hdr-h)+var(--st));padding-top:var(--st);background:var(--glass);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--glass-b);display:flex;align-items:center;justify-content:space-between;padding-left:16px;padding-right:16px;z-index:100}
+.hdr{position:fixed;top:0;left:0;right:0;height:calc(var(--hdr-h)+var(--st));padding-top:var(--st);background:var(--bg-0);border-bottom:1px solid var(--glass-b);display:flex;align-items:center;justify-content:space-between;padding-left:16px;padding-right:16px;z-index:100}
 .logo{font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hdr-r{display:flex;align-items:center;gap:8px}
 .chip{display:flex;align-items:center;gap:4px;font-size:13px;font-weight:700;padding:5px 10px;border-radius:20px;background:var(--glass);border:1px solid var(--glass-b);color:var(--text)}
 .hb{width:34px;height:34px;border-radius:50%;background:var(--glass);border:1px solid var(--glass-b);color:var(--text);font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s}
 .hb:active{transform:scale(.9);background:var(--glass-h)}
 
-.main{position:relative;z-index:1;padding-top:calc(var(--hdr-h)+var(--st)+12px);padding-bottom:calc(var(--tab-h)+var(--sb)+20px);padding-left:14px;padding-right:14px;max-width:500px;margin:0 auto}
+.main{position:relative;z-index:1;padding-top:calc(var(--hdr-h)+var(--st)+16px);padding-bottom:calc(var(--tab-h)+var(--sb)+20px);padding-left:14px;padding-right:14px;max-width:500px;margin:0 auto}
 
 .view{display:none}.view.active{display:block;animation:vE .4s cubic-bezier(.32,.72,0,1)}
 @keyframes vE{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
@@ -204,7 +204,6 @@ button,input,textarea{font-family:inherit;-webkit-user-select:none;user-select:n
 
 <div class="main">
 <div class="view active" id="vD">
-  <div class="lh"><div class="ln" id="lN">Aloittelija</div><div class="lp" id="lPt">0 / 100</div><div class="pb2" style="margin-top:10px;background:rgba(255,255,255,.1)"><div class="pf" id="lB2" style="width:0%"></div></div><button class="hb" style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,.15);z-index:1" onclick="shR()" aria-label="Share">📤</button></div>
   <div class="card" id="dC">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="ct" data-i="daily.title">📅 Päivän annos</div><span class="badge ba" id="dBd">Uusi!</span></div>
     <div class="cs" id="dSc"></div><div id="dO"></div><div class="exp" id="dE"></div><div id="dP"></div>
@@ -214,7 +213,7 @@ button,input,textarea{font-family:inherit;-webkit-user-select:none;user-select:n
 </div>
 
 <div class="view" id="vS">
-  <div class="card" style="margin-top:6px">
+  <div class="card" style="margin-top:4px">
     <div class="ct" data-i="sim.title">🎭 Narsismisimulaattori</div>
     <div class="cs" data-i="sim.desc">Kirjoita tilanne ja katso miten eri narsismitasoilla reagoidaan.</div>
     <textarea class="ia" id="sI" data-ip="sim.placeholder" placeholder="Esim: Kerron ystävälle, että sain ylennyksen..."></textarea>
@@ -296,7 +295,7 @@ function cf(){const c=document.getElementById('confetti'),cl=['#6366F1','#EC4899
 // POINTS & LEVELS
 const LV=[{m:0,x:100},{m:100,x:300},{m:300,x:600},{m:600,x:1e3},{m:1e3,x:2e3},{m:2e3,x:1/0}];
 function aP(n){$.pts+=n;const ol=$.lvl;for(let i=LV.length-1;i>=0;i--)if($.pts>=LV[i].m){$.lvl=i+1;break}sv();uLv();const e=document.getElementById('ptC');e.textContent='⭐ '+$.pts;e.classList.remove('sf');void e.offsetWidth;e.classList.add('sf');if(n>0)xp(n);if($.lvl>ol){cf();sn('up')}}
-function uLv(){const ns=t('levels'),i=$.lvl-1;document.getElementById('lN').textContent=ns[i]||ns[0];const l=LV[i],rg=l.x===1/0?1e3:l.x-l.m,pc=Math.min(100,(($.pts-l.m)/rg)*100);document.getElementById('lPt').textContent=$.pts+' / '+(l.x===1/0?'∞':l.x);document.getElementById('lB2').style.width=pc+'%'}
+function uLv(){const ns=t('levels'),i=$.lvl-1;const eN=document.getElementById('lN'),eP=document.getElementById('lPt'),eB=document.getElementById('lB2');if(!eN)return;eN.textContent=ns[i]||ns[0];const l=LV[i],rg=l.x===1/0?1e3:l.x-l.m,pc=Math.min(100,(($.pts-l.m)/rg)*100);if(eP)eP.textContent=$.pts+' / '+(l.x===1/0?'∞':l.x);if(eB)eB.style.width=pc+'%'}
 
 // STREAK
 function uSt(){const td=new Date().toISOString().slice(0,10);if($.last===td)return;const y=new Date(Date.now()-864e5).toISOString().slice(0,10);$.streak=$.last===y?$.streak+1:1;$.last=td;if(!$.days.includes(td))$.days.push(td);if($.days.length>90)$.days=$.days.slice(-90);sv();document.getElementById('stC').textContent='🔥 '+$.streak;rSt()}
