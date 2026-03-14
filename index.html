@@ -165,9 +165,52 @@ button,input,textarea{font-family:inherit;-webkit-user-select:none;user-select:n
 .btn:focus-visible,.bo:focus-visible,.hb:focus-visible,.tab:focus-visible,.lb:focus-visible,.ec:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media(max-width:380px){.logo{font-size:17px}.card{padding:16px}.chip{font-size:11px;padding:4px 8px}}
 @supports not(backdrop-filter:blur(1px)){.card,.hdr,.tabs,.md,.ec{background:var(--bg-1)!important}}
+
+/* Splash screen */
+#splash{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,#312e81 0%,#4c1d95 35%,#831843 100%);
+  transition:opacity .6s ease,transform .6s ease}
+#splash.hide{opacity:0;transform:scale(1.05);pointer-events:none}
+#splash .splash-brand{position:relative;display:flex;flex-direction:column;align-items:center;margin-bottom:24px}
+#splash .mirror-ring{width:100px;height:100px;border-radius:50%;border:6px solid rgba(255,255,255,.85);position:relative;z-index:2;
+  background:radial-gradient(circle at 40% 35%,rgba(165,180,252,.4),rgba(99,102,241,.15) 60%,transparent 80%);
+  box-shadow:0 0 40px rgba(99,102,241,.3),inset 0 0 20px rgba(255,255,255,.1)}
+#splash .mirror-shine{position:absolute;top:15px;left:22px;width:26px;height:26px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.6),transparent 70%)}
+#splash .mirror-shine2{position:absolute;top:30px;left:46px;width:10px;height:10px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.4),transparent 70%)}
+#splash .mirror-stem{position:absolute;left:50%;transform:translateX(-50%);top:108px;bottom:0;width:8px;z-index:1;
+  background:linear-gradient(to bottom,rgba(255,255,255,.45),rgba(255,255,255,.8),#fff);
+  border-radius:0 0 2px 2px}
+#splash .app-title{display:flex;align-items:baseline;font-size:36px;font-weight:900;color:#fff;letter-spacing:1px;
+  text-shadow:0 2px 20px rgba(99,102,241,.5);margin-top:28px;position:relative;z-index:3}
+#splash .title-i{width:8px;margin:0 4px;display:inline-block}
+#splash .quote{max-width:300px;text-align:center;font-size:14px;line-height:1.6;color:rgba(255,255,255,.8);
+  font-style:italic;padding:0 20px}
+#splash .quote-author{font-size:12px;color:rgba(255,255,255,.5);margin-top:8px;font-style:normal}
 </style>
 </head>
 <body>
+<div id="splash">
+  <div class="splash-brand">
+    <div class="mirror-ring"><div class="mirror-shine"></div><div class="mirror-shine2"></div></div>
+    <div class="mirror-stem"></div>
+    <div class="app-title"><span>Narc</span><div class="title-i"></div><span>ssus</span></div>
+  </div>
+  <div class="quote" id="splashQuote"></div>
+  <div class="quote-author" id="splashAuthor"></div>
+</div>
+<script src="quotes.js"></script>
+<script>
+(function(){
+var la=localStorage.getItem('ns_lang')||'fi';
+if(typeof Q!=='undefined'&&Q.length){var q=Q[Math.floor(Math.random()*Q.length)];
+document.getElementById('splashQuote').textContent='"'+(q[la]||q.en||q.fi)+'"';
+document.getElementById('splashAuthor').textContent='— '+q.a;}
+setTimeout(function(){document.getElementById('splash').classList.add('hide')},2500);
+setTimeout(function(){var s=document.getElementById('splash');if(s)s.remove()},3200);
+})();
+</script>
 <div class="orbs"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
 <canvas id="particleCanvas"></canvas>
 <div class="cfb" id="confetti"></div>
